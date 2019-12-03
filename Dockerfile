@@ -16,7 +16,6 @@ RUN apk add --update \
 RUN cd /tmp/ && \
     wget http://www.net2ftp.com/download/${NVR}.zip && \
     unzip ${NVR}.zip -d htdocs \
-    chown -R root:apache /var/www/localhost/htdocs && \
     rm -fr /tmp/*
 
 COPY php_value.conf /etc/apache2/conf.d/
