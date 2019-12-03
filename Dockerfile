@@ -16,7 +16,7 @@ RUN apk add --update \
 RUN cd /tmp/ && \
     wget http://www.net2ftp.com/download/${NVR}.zip && \
     unzip ${NVR}.zip && \
-    mv ${NVR}/* /var/www/localhost/htdocs/ && \
+    mv ${NVR}/* htdocs/ && \
     chown -R root:apache /var/www/localhost/htdocs && \
     rm -fr /tmp/*
 
