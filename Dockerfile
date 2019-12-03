@@ -9,6 +9,9 @@ RUN apk add --update \
       apache2 \
       php \
       php-apache2 \
+      php-mysql \
+      php-pgsql \
+      php-sqlite3 \
       && \
     rm -f /var/cache/apk/*
 
@@ -16,13 +19,14 @@ RUN apk add --update \
 RUN cd /tmp/ && \
     wget http://www.net2ftp.com/download/${NVR}.zip && \
     unzip ${NVR}.zip && \
-    chmod 0777 ${NVR}/files_to_upload/temp && \
-    mv -f ${NVR}/files_to_upload/* /var/www/localhost/htdocs/ && \
+    mv ${NVR}/* /var/www/localhost/htdocs/ && \
+    chown -R root:apache /var/www/localhost/htdocs && \
     rm -fr /tmp/*
 
 COPY php_value.conf /etc/apache2/conf.d/
 
-VOLUME ["/var/www/html/temp"]
+ENV LANG C
+EXPOSE 80
 
 ENTRYPOINT ["apachectl"]
 CMD ["-D", "FOREGROUND"]
